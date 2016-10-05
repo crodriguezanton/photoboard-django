@@ -46,7 +46,4 @@ class Picture(TimeStampedModel):
 
     picture = models.ImageField()
     student = models.ForeignKey(Student)
-    subject = models.ForeignKey(Subject, null=True)
-    group = models.ForeignKey(Group, null=True)
-    topic = models.ForeignKey(Topic, null=True)
-    timetable_entry = models.ForeignKey(TimetableEntry, null=True)
+    gallery = models.ForeignKey(TimetableEntryGallery, null=True)
