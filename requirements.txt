@@ -1,0 +1,11 @@
+Django==1.10.2
+django-allauth==0.27.0
+django-filter==0.15.2
+django-model-utils==2.6
+djangorestframework==3.4.7
+Markdown==2.6.7
+oauthlib==2.0.0
+Pillow==3.4.1
+python-openid==2.2.5
+requests==2.11.1
+requests-oauthlib==0.7.0
