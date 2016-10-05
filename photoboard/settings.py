@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'education',
     'pictures',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
