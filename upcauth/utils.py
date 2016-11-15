@@ -1,11 +1,9 @@
 # coding=utf-8
 import requests
 from BeautifulSoup import BeautifulSoup
-from datetime import datetime, time, date
-from icalendar import Calendar, Event
-
 
 def login(username, password):
+    """ Fake request to atenea.upc.edu in order to check login credentials """
     r = requests.post('https://atenea.upc.edu/moodle/login/index.php?authCAS=CAS', data={'submit': 'Iniciar Sessió'})
     soup = BeautifulSoup(r.content)
 
@@ -31,14 +29,18 @@ def login(username, password):
     return requests.post(action, data=data)
 
 
-def checkLogin():
-    r = login()
+def checkLogin(username, password):
+    """ If the url of the page obtained after performing login method equals atenea.upc.edu/moodle, login was ok. """
+    
+    r = login(username, password)
 
     return r.url == 'http://atenea.upc.edu/moodle/'
 
 
-def getCourses():
-    r = login()
+def getCourses(username, password):
+    """ Gets courses that the student is enrolled to by finding the <h3 class="coursename"> tag. """
+    
+    r = login(username, password)
     soup = BeautifulSoup(r.content)
     courses = soup.findAll('h3', {'class': 'coursename'})
 
