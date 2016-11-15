@@ -8,18 +8,22 @@ from pictures.models import Picture
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
+    """ Serializer for the :model:`django.contrib.auth.models.User` """
     class Meta:
         model = User
         fields = ('url', 'username', 'email', 'is_staff')
 
 
 class StudentSerializer(serializers.HyperlinkedModelSerializer):
+    """ Serializer for the :model:`education.models.Student` """
     class Meta:
         model = Student
         fields = ('url', 'user')
 
 
+
 class PictureSerializer(serializers.ModelSerializer):
+    """ Serializer for the :model:`pictures.models.Picture` """
     class Meta:
         model = Picture
         fields = ('id', 'url', 'student', 'picture')
@@ -36,6 +40,7 @@ class PictureSerializer(serializers.ModelSerializer):
 
 
 class PictureServerSerializer(serializers.ModelSerializer):
+    """ Serializer for the :model:`pictures.models.Picture` for the android client “””
     class Meta:
         model = Picture
         fields = ('id', 'picture', 'depth')
