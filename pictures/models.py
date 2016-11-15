@@ -44,6 +44,8 @@ class Picture(TimeStampedModel):
         verbose_name = _('Picture')
         verbose_name_plural = _('Picture')
 
-    picture = models.ImageField()
-    student = models.ForeignKey(Student)
-    gallery = models.ForeignKey(TimetableEntryGallery, null=True)
+    picture = models.ImageField(null=True, blank=True)
+    depth = models.ImageField(null=True, blank=True)
+
+    student = models.ForeignKey(Student, null=True, blank=True)
+    gallery = models.ForeignKey(TimetableEntryGallery, null=True, blank=True)

@@ -1,4 +1,5 @@
 # Serializers define the API representation.
+from django.conf import settings
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
@@ -18,7 +19,23 @@ class StudentSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'user')
 
 
-class PictureSerializer(serializers.HyperlinkedModelSerializer):
+class PictureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Picture
-        fields = ('url', 'picture', 'student')
+        fields = ('id', 'url', 'student', 'picture')
+
+    picture = serializers.SerializerMethodField('image_url')
+
+    def image_url(self, picture):
+        if picture.picture:
+            return picture.picture.url
+        elif picture.depth:
+            return picture.depth.url
+        else:
+            return None
+
+
+class PictureServerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Picture
+        fields = ('id', 'picture', 'depth')
