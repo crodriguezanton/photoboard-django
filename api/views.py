@@ -33,6 +33,6 @@ class GetSubjectsView(APIView):
     def post(self, request, format=None):
         subjects = getCourses(request.data.get("email", ""), request.data.get("password", ""))
 
-        serializer = SubjectSerializer(subjects, many=True)
+        serializer = SubjectSerializer(subjects, many=True, context={'request': request})
 
         return Response(serializer.data, status=status.HTTP_200_OK)
