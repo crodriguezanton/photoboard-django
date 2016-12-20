@@ -46,8 +46,7 @@ def getCourses(username, password):
 
     courses = set()
     for course in coursesraw:
-        c = BeautifulSoup(course)
-        text = c.find('a').text
+        text = course.find('a').text
         id = text.split(" - ")[0]
         text = text.split(" - ")[1].split(" (")[0]
 
