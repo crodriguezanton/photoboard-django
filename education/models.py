@@ -102,7 +102,7 @@ class Subject(models.Model):
     semester = models.ForeignKey(Semester, blank=True, null=True)
 
     def __unicode__(self):
-        return self.short_name + ": " + self.name
+        return self.code + ": " + self.name
 
 
 class Topic(models.Model):

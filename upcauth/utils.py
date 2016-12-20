@@ -57,5 +57,5 @@ def getCourses(username, password):
             courses.append(id)
 
             Subject.objects.get_or_create(code=id, name=name)
-            
+
     return Subject.objects.filter(code__in=courses)
