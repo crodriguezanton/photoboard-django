@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'education',
     'pictures',
     'rest_framework',
+    'raven.contrib.django.raven_compat',
 ]
 
 MIDDLEWARE = [

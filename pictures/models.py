@@ -47,3 +47,4 @@ class PictureRequest(TimeStampedModel):
     uuid = models.UUIDField(default=uuid.uuid4, primary_key=True)
     ready = models.BooleanField(default=False)
     picture = models.ForeignKey(Picture, null=True, blank=True)
+    subject = models.ForeignKey(Subject, null=True, blank=True)

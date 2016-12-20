@@ -52,7 +52,7 @@ class PictureRequestSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = PictureRequest
-        fields = ('url', 'uuid', 'ready', 'picture')
+        fields = ('url', 'uuid', 'ready', 'picture', 'subject')
         read_only_fields=('uuid', 'ready')
 
 class ResponseSerializer(serializers.Serializer):
