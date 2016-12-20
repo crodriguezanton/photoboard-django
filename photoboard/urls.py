@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 from api.routers import default_router
-from api.views import PictureRequestCreateView, UPCLoginView
+from api.views import PictureRequestCreateView, UPCLoginView, GetSubjectsView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^api/', include(default_router.urls)),
     url(r'^api/create-request', PictureRequestCreateView.as_view()),
     url(r'^api/login', UPCLoginView.as_view()),
+    url(r'^api/subjects', GetSubjectsView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
