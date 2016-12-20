@@ -65,7 +65,7 @@ class SubjectSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Subject
-        fields = ('code', 'name', 'short_name', 'subject_gallery')
+        fields = ('id', 'code', 'name', 'short_name', 'subject_gallery')
 
 
 class SubjectGallerySerializer(serializers.HyperlinkedModelSerializer):
