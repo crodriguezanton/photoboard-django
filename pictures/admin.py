@@ -3,5 +3,4 @@ from models import *
 
 admin.site.register(SubjectGallery)
 admin.site.register(TopicGallery)
-admin.site.register(TimetableEntryGallery)
 admin.site.register(Picture)

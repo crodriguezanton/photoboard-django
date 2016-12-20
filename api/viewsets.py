@@ -2,8 +2,9 @@
 from django.contrib.auth.models import User
 from rest_framework import viewsets
 
-from api.serializers import UserSerializer, PictureSerializer, StudentSerializer, PictureServerSerializer
-from pictures.models import Picture
+from api.serializers import UserSerializer, PictureSerializer, StudentSerializer, PictureServerSerializer, \
+    PictureRequestSerializer
+from pictures.models import Picture, PictureRequest
 from education.models import Student
 
 
@@ -25,3 +26,8 @@ class PictureViewSet(viewsets.ModelViewSet):
 class PictureServerViewSet(viewsets.ModelViewSet):
     queryset = Picture.objects.all()
     serializer_class = PictureServerSerializer
+
+
+class PictureRequestViewSet(viewsets.ModelViewSet):
+    queryset = PictureRequest.objects.all()
+    serializer_class = PictureRequestSerializer

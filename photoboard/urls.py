@@ -19,10 +19,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 from api.routers import default_router
+from api.views import PictureRequestCreateView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/', include(default_router.urls)),
+    url(r'^api/create-request', PictureRequestCreateView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

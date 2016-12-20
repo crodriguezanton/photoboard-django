@@ -1,11 +1,12 @@
 from __future__ import unicode_literals
 
+import uuid as uuid
 from django.db import models
 from model_utils.models import TimeStampedModel
 from django.utils.translation import gettext as _
 
 
-from education.models import Subject, Group, Topic, TimetableEntry, Student
+from education.models import Subject, Topic, Student
 
 
 class PictureGallery(models.Model):
@@ -20,7 +21,6 @@ class SubjectGallery(PictureGallery):
         verbose_name_plural = _('Subject Galleries')
 
     subject = models.ForeignKey(Subject)
-    group = models.ForeignKey(Group)
 
 
 class TopicGallery(SubjectGallery):
@@ -29,14 +29,6 @@ class TopicGallery(SubjectGallery):
         verbose_name_plural = _('Topic Galleries')
 
     topic = models.ForeignKey(Topic)
-
-
-class TimetableEntryGallery(TopicGallery):
-    class Meta:
-        verbose_name = _('Timetable Entry Gallery')
-        verbose_name_plural = _('Timetable Entry Galleries')
-
-    timetable_entry = models.ForeignKey(TimetableEntry)
 
 
 class Picture(TimeStampedModel):
@@ -48,4 +40,10 @@ class Picture(TimeStampedModel):
     depth = models.ImageField(null=True, blank=True)
 
     student = models.ForeignKey(Student, null=True, blank=True)
-    gallery = models.ForeignKey(TimetableEntryGallery, null=True, blank=True)
+    gallery = models.ForeignKey(SubjectGallery, null=True, blank=True)
+
+
+class PictureRequest(TimeStampedModel):
+    uuid = models.UUIDField(default=uuid.uuid4, primary_key=True)
+    ready = models.BooleanField(default=False)
+    picture = models.ForeignKey(Picture, null=True, blank=True)
