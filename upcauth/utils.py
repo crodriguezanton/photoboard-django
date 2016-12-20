@@ -3,6 +3,7 @@ import requests
 from BeautifulSoup import BeautifulSoup
 
 from education.models import Subject
+from pictures.models import SubjectGallery
 
 
 def login(username, password):
@@ -56,6 +57,9 @@ def getCourses(username, password):
 
             courses.append(id)
 
-            Subject.objects.get_or_create(code=id, name=name)
+            s, created = Subject.objects.get_or_create(code=id, name=name)
+
+            if created:
+                SubjectGallery.objects.get_or_create(subject=s)
 
     return Subject.objects.filter(code__in=courses)

@@ -20,7 +20,7 @@ class SubjectGallery(PictureGallery):
         verbose_name = _('Subject Gallery')
         verbose_name_plural = _('Subject Galleries')
 
-    subject = models.ForeignKey(Subject, related_name='subject_gallery')
+    subject = models.OneToOneField(Subject, related_name='subject_gallery')
 
 
 class TopicGallery(SubjectGallery):
