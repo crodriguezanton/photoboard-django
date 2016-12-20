@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.serializers import PictureRequestSerializer, ResponseSerializer, SubjectSerializer
+from education.models import Subject
 from pictures.models import PictureRequest
 from upcauth.utils import checkLogin, getCourses
 
@@ -14,7 +15,7 @@ class PictureRequestCreateView(CreateAPIView):
 
 class PictureRequestView(APIView):
     def post(self, request, format=None):
-        pr = PictureRequest.objects.create(subject__pk=request.data.get("subject", None))
+        pr = PictureRequest.objects.create(subject=Subject.objects.get(pk=request.data.get("subject", None)))
 
         serializer = PictureRequestSerializer(pr, context={'request': request})
 
