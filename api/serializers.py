@@ -22,7 +22,6 @@ class StudentSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'user')
 
 
-
 class PictureSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -54,6 +53,7 @@ class PictureRequestSerializer(serializers.ModelSerializer):
         model = PictureRequest
         fields = ('url', 'uuid', 'ready', 'picture', 'subject')
         read_only_fields=('uuid', 'ready')
+
 
 class ResponseSerializer(serializers.Serializer):
     success = serializers.BooleanField()
