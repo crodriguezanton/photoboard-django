@@ -42,6 +42,16 @@ def getCourses(username, password):
     
     r = login(username, password)
     soup = BeautifulSoup(r.content)
-    courses = soup.findAll('h3', {'class': 'coursename'})
+    coursesraw = soup.findAll('h3', {'class': 'coursename'})
 
-    return courses
+    courses = map()
+    for course in coursesraw:
+        c = BeautifulSoup(course)
+        text = c.find('a').text
+        id = text.split(" - ")[0]
+        text = text.split(" - ")[1].split(" (")[0]
+
+        courses.append({'id': text.split(" - ")[0],
+         'name': text})
+
+    return list(courses)
