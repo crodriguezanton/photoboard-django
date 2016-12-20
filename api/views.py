@@ -17,7 +17,7 @@ class PictureRequestView(APIView):
     def post(self, request, format=None):
         pr = PictureRequest.objects.create(subject=Subject.objects.get(pk=request.data.get("subject", None)))
 
-        serializer = PictureRequestSerializer(pr, context={'request': request})
+        serializer = PictureRequestSerializer(pr)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
