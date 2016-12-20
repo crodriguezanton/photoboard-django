@@ -44,13 +44,14 @@ def getCourses(username, password):
     soup = BeautifulSoup(r.content)
     coursesraw = soup.findAll('h3', {'class': 'coursename'})
 
-    courses = set()
+    courses = []
     for course in coursesraw:
         text = course.find('a').text
-        id = text.split(" - ")[0]
-        text = text.split(" - ")[1].split(" (")[0]
+        if len(text.split(" - ")) > 1 and "Metacurs" not in text:
+            id = text.split(" - ")[0]
+            name = text.split(" - ")[1].split(" (")[0]
 
-        courses.add({'id': text.split(" - ")[0],
-         'name': text})
+            courses.append({'id': text.split(" - ")[0],
+             'name': name})
 
-    return list(courses)
+    return courses
