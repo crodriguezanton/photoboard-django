@@ -68,7 +68,7 @@ class SubjectSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'code', 'name', 'short_name', 'subject_gallery')
 
 
-class SubjectGallerySerializer(serializers.HyperlinkedModelSerializer):
+class SubjectGallerySerializer(serializers.ModelSerializer):
     pictures = PictureSerializer(read_only=True, many=True)
     subject = SubjectSerializer(read_only=True)
     class Meta:
