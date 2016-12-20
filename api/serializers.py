@@ -47,7 +47,7 @@ class PictureServerSerializer(serializers.ModelSerializer):
         fields = ('id', 'picture', 'depth')
 
 
-class PictureRequestSerializer(serializers.HyperlinkedModelSerializer):
+class PictureRequestSerializer(serializers.ModelSerializer):
     picture = PictureSerializer(read_only=True)
 
     class Meta:
