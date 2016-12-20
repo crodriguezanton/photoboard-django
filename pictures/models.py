@@ -20,7 +20,7 @@ class SubjectGallery(PictureGallery):
         verbose_name = _('Subject Gallery')
         verbose_name_plural = _('Subject Galleries')
 
-    subject = models.ForeignKey(Subject)
+    subject = models.ForeignKey(Subject, related_name='subject_gallery')
 
 
 class TopicGallery(SubjectGallery):
@@ -40,7 +40,7 @@ class Picture(TimeStampedModel):
     depth = models.ImageField(null=True, blank=True)
 
     student = models.ForeignKey(Student, null=True, blank=True)
-    gallery = models.ForeignKey(SubjectGallery, null=True, blank=True)
+    gallery = models.ForeignKey(SubjectGallery, null=True, blank=True, related_name='pictures')
 
 
 class PictureRequest(TimeStampedModel):

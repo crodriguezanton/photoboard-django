@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from education.models import Student, Subject
-from pictures.models import Picture, PictureRequest
+from pictures.models import Picture, PictureRequest, SubjectGallery
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -61,8 +61,16 @@ class ResponseSerializer(serializers.Serializer):
     error = serializers.CharField(max_length=200, required=False)
 
 
-class SubjectSerializer(serializers.ModelSerializer):
+class SubjectSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Subject
-        fields = ('code', 'name', 'short_name')
+        fields = ('code', 'name', 'short_name', 'subject_gallery')
+
+
+class SubjectGallerySerializer(serializers.HyperlinkedModelSerializer):
+    pictures = PictureSerializer(read_only=True, many=True)
+    subject = SubjectSerializer(read_only=True)
+    class Meta:
+        model = SubjectGallery
+        fields = ('subject', 'pictures')
