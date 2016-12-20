@@ -54,3 +54,8 @@ class PictureRequestSerializer(serializers.HyperlinkedModelSerializer):
         model = PictureRequest
         fields = ('url', 'uuid', 'ready', 'picture')
         read_only_fields=('uuid', 'ready')
+
+class ResponseSerializer(serializers.Serializer):
+    success = serializers.BooleanField()
+    error_code = serializers.IntegerField(required=False)
+    error = serializers.CharField(max_length=200, required=False)
