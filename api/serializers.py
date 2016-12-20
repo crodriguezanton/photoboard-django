@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from education.models import Student
+from education.models import Student, Subject
 from pictures.models import Picture, PictureRequest
 
 
@@ -59,3 +59,10 @@ class ResponseSerializer(serializers.Serializer):
     success = serializers.BooleanField()
     error_code = serializers.IntegerField(required=False)
     error = serializers.CharField(max_length=200, required=False)
+
+
+class SubjectSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Subject
+        fields = ('code', 'name')

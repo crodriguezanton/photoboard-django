@@ -2,6 +2,9 @@
 import requests
 from BeautifulSoup import BeautifulSoup
 
+from education.models import Subject
+
+
 def login(username, password):
     """ Fake request to atenea.upc.edu in order to check login credentials """
     r = requests.post('https://atenea.upc.edu/moodle/login/index.php?authCAS=CAS', data={'submit': 'Iniciar Sessió'})
@@ -51,7 +54,8 @@ def getCourses(username, password):
             id = text.split(" - ")[0]
             name = text.split(" - ")[1].split(" (")[0]
 
-            courses.append({'id': text.split(" - ")[0],
-             'name': name})
+            courses.append(id)
 
-    return courses
+            Subject.objects.get_or_create(code=id, name=name)
+            
+    return Subject.objects.filter(code__in=courses)

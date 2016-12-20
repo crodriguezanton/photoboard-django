@@ -95,7 +95,7 @@ class Subject(models.Model):
         verbose_name_plural = _('Subjects')
 
     name = models.CharField(max_length=200)
-    short_name = models.CharField(max_length=20)
+    short_name = models.CharField(max_length=20, blank=True, null=True)
     code = models.CharField(max_length=20)
     degree = models.ForeignKey(Degree, blank=True, null=True)
     group = models.CharField(max_length=10, blank=True, null=True)

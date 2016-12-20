@@ -3,8 +3,8 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from api.serializers import PictureRequestSerializer, ResponseSerializer
-from upcauth.utils import checkLogin
+from api.serializers import PictureRequestSerializer, ResponseSerializer, SubjectSerializer
+from upcauth.utils import checkLogin, getCourses
 
 
 class PictureRequestCreateView(CreateAPIView):
@@ -22,6 +22,18 @@ class UPCLoginView(APIView):
         }
 
         serializer = ResponseSerializer(data=data)
+
+        if serializer.is_valid():
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class GetSubjectsView(APIView):
+    def post(self, request, format=None):
+        subjects = getCourses(request.data.get("email", ""), request.data.get("password", ""))
+
+        serializer = SubjectSerializer(data=subjects, many=True)
 
         if serializer.is_valid():
             return Response(serializer.data, status=status.HTTP_200_OK)
