@@ -11,8 +11,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_server/static/')
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
-DEBUG = False
-ALLOWED_HOSTS = ['.photoboard.tech', '.azure.com']
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 DATABASES = {
         'default': {
