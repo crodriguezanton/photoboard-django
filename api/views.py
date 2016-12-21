@@ -1,12 +1,14 @@
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
+from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.serializers import PictureRequestSerializer, ResponseSerializer, SubjectSerializer
 from education.models import Subject
-from pictures.models import PictureRequest
+from pictures.models import PictureRequest, Picture, SubjectGallery
 from upcauth.utils import checkLogin, getCourses
+from pictures.utils import call_socket
 
 
 class PictureRequestCreateView(CreateAPIView):
@@ -16,6 +18,8 @@ class PictureRequestCreateView(CreateAPIView):
 class PictureRequestView(APIView):
     def post(self, request, format=None):
         pr = PictureRequest.objects.create(subject=Subject.objects.get(pk=request.data.get("subject", None)))
+
+        call_socket(pr.uuid)
 
         serializer = PictureRequestSerializer(pr, context={'request': request})
 
@@ -47,3 +51,25 @@ class GetSubjectsView(APIView):
         serializer = SubjectSerializer(subjects, many=True, context={'request': request})
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class UploadPictureView(APIView):
+    parser_classes = (FileUploadParser,)
+
+    def post(self, request, format=None):
+        picture = request.FILES.get('picture')
+        depth = request.FILES.get('depth')
+        uuid = self.kwargs.get('uuid')
+
+        pr = PictureRequest.objects.get(pk=uuid)
+        pr.picture = Picture.objects.create(
+            picture = picture,
+            depth = depth,
+            gallery = SubjectGallery.objects.get(subject=pr.subject)
+        )
+        pr.ready = True
+        pr.save()
+
+        serializer = PictureRequestSerializer(pr, context={'request': request})
+
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
