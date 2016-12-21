@@ -54,7 +54,6 @@ class GetSubjectsView(APIView):
 
 
 class UploadPictureView(APIView):
-    parser_classes = (FileUploadParser,)
 
     def post(self, request, uuid, format=None):
         picture = request.FILES.get('picture')
