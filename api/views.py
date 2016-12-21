@@ -19,7 +19,7 @@ class PictureRequestView(APIView):
     def post(self, request, format=None):
         pr = PictureRequest.objects.create(subject=Subject.objects.get(pk=request.data.get("subject", None)))
 
-        call_socket(pr.uuid)
+        call_socket(str(pr.uuid))
 
         serializer = PictureRequestSerializer(pr, context={'request': request})
 
