@@ -56,10 +56,9 @@ class GetSubjectsView(APIView):
 class UploadPictureView(APIView):
     parser_classes = (FileUploadParser,)
 
-    def post(self, request, format=None):
+    def post(self, request, uuid, format=None):
         picture = request.FILES.get('picture')
         depth = request.FILES.get('depth')
-        uuid = self.kwargs.get('uuid')
 
         pr = PictureRequest.objects.get(pk=uuid)
         pr.picture = Picture.objects.create(
